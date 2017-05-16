@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def parse_input():
     """Parse the input from the command line."""
     parser = argparse.ArgumentParser(description='Convert ipynb html files so that the input field are collapsable.')
-    parser.add_argument('html_file', type=argparse.FileType('rw'), help='ipynb as html file to process.')
+    parser.add_argument('html_file', type=argparse.FileType('r'), help='ipynb as html file to process.')
     parser.add_argument('to_collapse', type=int, nargs='*', help='Indices of input fields to collapse.')
     args = parser.parse_args()
     return args.html_file, args.to_collapse
@@ -28,7 +28,7 @@ def main():
     soup = BeautifulSoup(html_file, 'html.parser')
     insert_collapse_buttons(soup, to_collapse)
     # Overwrite original file
-    print(soup.prettify().encode('utf-8'))
+    print(soup.prettify())
     html_file.close()
 
 if __name__ == "__main__":
